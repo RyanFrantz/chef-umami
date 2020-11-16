@@ -19,12 +19,11 @@ require 'chef-umami/helpers/filetools'
 module Umami
   class Test
     class Integration < Umami::Test
-
       include Umami::Helper::InSpec
       include Umami::Helper::FileTools
 
       attr_reader :test_root
-      def initialize
+      def initialize(root_dir)
         super
         @test_root = File.join(self.root_dir, 'umami', 'integration')
       end
@@ -32,7 +31,7 @@ module Umami
       # InSpec doesn't need a require statement to use its tests.
       # We define #framework here for completeness.
       def framework
-        "inspec"
+        'inspec'
       end
 
       def test_file_path(cookbook = '', recipe = '')
@@ -50,18 +49,19 @@ module Umami
           return if resource.action.include?(:delete)
         end
         return if resource.action == :delete
+
         "\n" + send("test_#{resource.declared_type}", resource)
       end
 
       # If the test framework's helper module doesn't provide support for a
       # given test-related method, return a friendly message.
       # Raise NoMethodError for any other failed calls.
-      def method_missing(m, *args, &block)
-        case m
-          when /^test_/
-            "# #{m} is not currently defined. Stay tuned for updates."
-          else
-            raise NoMethodError
+      def method_missing(meth, *args, &block)
+        case meth
+        when /^test_/
+          "# #{meth} is not currently defined. Stay tuned for updates."
+        else
+          raise NoMethodError
         end
       end
 
@@ -82,14 +82,12 @@ module Umami
         enforce_styling(test_root)
 
         unless test_files_written.empty?
-          puts "Wrote the following integration tests:"
+          puts 'Wrote the following integration tests:'
           test_files_written.each do |f|
             puts "\t#{f}"
           end
         end
-
       end
-
     end
   end
 end

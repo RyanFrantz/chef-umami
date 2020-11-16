@@ -7,6 +7,26 @@ Let's see it in action!
 
 [![asciicast](https://asciinema.org/a/138816.png)](https://asciinema.org/a/138816)
 
+## Running `umami`
+
+A number of options maybe specified on the command line:
+
+```bash
+Usage: umami [options]
+
+A taste you won't forget!
+
+    -h, --help                       Prints this help message
+    -i, --[no-]integration-tests     Write integration tests (DEFAULT: true)
+    -p, --policyfile POLICYFILE_PATH Specify the path to a policy (DEFAULT: Policyfile.rb)
+    -r, --recipes RECIPE1,RECIPE2    Specify one or more recipes for which we'll write tests (DEFAULT: All recipes)
+    -t, --test-root TEST_ROOT_PATH   Specify the path into which we'll write tests (DEFAULT: spec)
+    -u, --[no-]unit-tests            Write unit tests (DEFAULT: true)
+    -v, --version                    Show version and exit
+```
+
+If not options are specified, a reasonable set of defaults are defined.
+
 ## How does it Work?
 
 `umami` loads up one or more cookbooks in a `chef-zero` instance, executes the
@@ -160,11 +180,11 @@ can build on. **Do NOT depend solely on `umami` to provide test coverage!**
 
 This project came to be largely out of fear of having to write a lot of test
 code from scratch where none had previously existed. The idea of starting from
-nothing seemed so daunting that it's likely no on would ever get started. I
+nothing seemed so daunting that it's likely no one would ever get started. I
 wanted to give Chef developers a means to expedite writing tests. After all,
 it's much easier to modify code than it is to write it in the first place.
 
-`umami` is the product of reearch into various projects' code, such as
+`umami` is the product of research into various projects' code, such as
 Chef, ChefDK, and Test Kitchen. I am grateful to everyone that has contributed
 to those projects. `umami` borrows some patterns from those projects and, in
 some cases, bits of code.

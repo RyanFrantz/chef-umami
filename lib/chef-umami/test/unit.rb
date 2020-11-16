@@ -19,20 +19,19 @@ require 'chef-umami/helpers/filetools'
 module Umami
   class Test
     class Unit < Umami::Test
-
       include Umami::Helper::OS
       include Umami::Helper::FileTools
 
       attr_reader :test_root
       attr_reader :tested_cookbook # This cookbook.
-      def initialize
+      def initialize(root_dir)
         super
         @test_root = File.join(self.root_dir, 'umami', 'unit', 'recipes')
         @tested_cookbook = File.basename(Dir.pwd)
       end
 
       def framework
-        "chefspec"
+        'chefspec'
       end
 
       def test_file(recipe = '')
@@ -61,8 +60,9 @@ module Umami
 
       def write_test(resource = nil)
         state_attrs = [] # Attribute hash to be used with #with()
-        resource.state.each do |attr, value|
-          next if value.nil? or (value.respond_to?(:empty) and value.empty?)
+        resource.state_for_resource_reporter.each do |attr, value|
+          next if value.nil? || (value.respond_to?(:empty) && value.empty?)
+
           if value.is_a? String
             value = value.gsub("'", "\\\\'") # Escape any single quotes in the value.
           end
@@ -91,11 +91,12 @@ module Umami
           (cookbook, recipe) = canonical_recipe.split('::')
           # Only write unit tests for the cookbook we're in.
           next unless cookbook == tested_cookbook
+
           content = [preamble(cookbook, recipe)]
           resources.each do |resource|
             content << write_test(resource)
           end
-          content << "end"
+          content << 'end'
           test_file_name = test_file(recipe)
           test_file_content = content.join("\n") + "\n"
           write_file(test_file_name, test_file_content)
@@ -107,14 +108,12 @@ module Umami
         test_files_written << spec_helper_path
 
         unless test_files_written.empty?
-          puts "Wrote the following unit test files:"
+          puts 'Wrote the following unit test files:'
           test_files_written.each do |f|
             puts "\t#{f}"
           end
         end
-
       end
-
     end
   end
 end

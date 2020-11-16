@@ -1,0 +1,59 @@
+AllCops:
+  Exclude:
+    - 'Guardfile'
+    - 'Rakefile'
+    - 'Vagrantfile'
+    - 'Policyfile.rb'
+    - 'Berksfile'
+    - 'Thorfile'
+    - 'Gemfile'
+    - 'metadata.rb'
+    - 'test/**/*'
+    - 'spec/**/*'
+    - 'bin/**'
+    - 'vendor/**/*'
+Lint/UnusedMethodArgument:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/LineLength:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Metrics/ModuleLength:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
+Naming/FileName:
+  Enabled: false
+# YOU'RE UNCOMMUNICATIVE
+Naming/UncommunicativeMethodParamName:
+  Enabled: false
+Style/Alias:
+  Enabled: false
+Style/BlockDelimiters:
+  Enabled: false
+Style/ConditionalAssignment:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/GuardClause:
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
+Style/MethodMissingSuper:
+  Enabled: false
+Style/MissingRespondToMissing:
+  Enabled: false
+Style/MultilineMemoization:
+  Enabled: false
+Style/PercentLiteralDelimiters:
+  Enabled: false
+Style/RedundantSelf:
+  Enabled: false
